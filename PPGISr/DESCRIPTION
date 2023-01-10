@@ -1,0 +1,36 @@
+Package: PPGISr
+Title: An An R package for implementing public participatory GIS
+Version: 0.1.0
+Author: c(person("Derek", "Van Berkel", , "dbvanber@umich.edu", role = c("aut")), person("Thomas", "Estabrook", , "tgestab@umich.edu", role = c("aut")), person("Nathan", "Fox", , "foxnat@umich.edu", role = c("aut")), person("Rahul", "Agrawal", , "rahulab@umich.edu", role = c("aut")))
+Maintainer: Derek Van Berkel <dbvanber@umich.edu>
+Description: PPGIS refers to spatially explicit methods for capturing and using spatial information in participatory planning processes, decision-making, and scientific inquiry(Rambaldi et al., 2006, Sieber, 2006, Lowery and Morse, 2013; Rambaldi and Callosa-Tarr, 2001). Applications include identifying participant preferences for future land use and management, pinpointing valued locations for conservation, and design of urban landscapes to name a few. However, the technical hurdles associated with its setup have often limited its use to small-scale experimental exercises. Reducing barriers to using PPGIS may offer new ways for public engagement and data collection that enhance our capacity to pursue decision-making, especially when it can be done online.
+License: MIT + file LICENSE
+Imports: 
+    config (>= 0.3.1),
+    golem (>= 0.3.5),
+    shiny (>= 1.7.2),
+    leaflet,
+    sf,
+    dplyr,
+    zip,
+    shinyscreenshot,
+    shinydashboard,
+    tidyselect,
+    shinyWidgets,
+    raster,
+    dashboardthemes,
+    shinyjs,
+    magrittr,
+    stringr,
+    htmltools
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.2.3
+Depends: 
+    R (>= 2.10),
+    shinyBS
+Suggests: 
+    spelling,
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
+Language: en-US
