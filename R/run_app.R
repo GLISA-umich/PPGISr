@@ -8,7 +8,7 @@
 #' @importFrom shiny shinyApp
 #' @importFrom sf st_read
 #' @importFrom golem with_golem_options
-#' @importFrom stats setnames
+#' @importFrom stats setNames
 run_app <- function(
   editable_map = PPGISr::duluthEditablemap %>%
     dplyr::mutate(PPGIS_CODE = as.character(dplyr::row_number()),SELECTED = NA) %>%

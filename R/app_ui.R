@@ -5,7 +5,7 @@
 #' @import shiny
 #' @import shinydashboard
 #' @importFrom shinyBS bsPopover
-#' @importshinydashboard dashboardPage
+#' @importFrom shinydashboard dashboardPage
 #' @importFrom dashboardthemes shinyDashboardThemeDIY
 #' @importFrom htmltools tags span br hr HTML
 #' @importFrom shinyWidgets awesomeRadio actionBttn downloadBttn

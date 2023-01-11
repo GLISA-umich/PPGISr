@@ -3,7 +3,7 @@
 #' @description A function to return a basemap in PPGISr
 #'
 #' @return The return value, if any, from executing the function.
-#' @
+#'
 #' @noRd
 createMap <- function() {
   m <- leaflet() %>%
