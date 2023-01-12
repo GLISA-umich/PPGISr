@@ -50,3 +50,14 @@ See `?golem::get_golem_options` for more details.}
 \description{
 Run the Shiny Application
 }
+\examples{
+\dontrun{
+
+run_app()
+
+run_app(mapping_categories = c("flowers", "lake", "trees"))
+
+}
+
+
+}

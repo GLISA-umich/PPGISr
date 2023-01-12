@@ -9,6 +9,17 @@
 #' @importFrom sf st_read
 #' @importFrom golem with_golem_options
 #' @importFrom stats setNames
+#'
+#' @examples
+#' \dontrun{
+#'
+#' run_app()
+#'
+#' run_app(mapping_categories = c("flowers", "lake", "trees"))
+#'
+#' }
+#'
+#'
 run_app <- function(
   editable_map = PPGISr::duluthEditablemap %>%
     dplyr::mutate(PPGIS_CODE = as.character(dplyr::row_number()),SELECTED = NA) %>%
