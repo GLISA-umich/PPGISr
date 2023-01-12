@@ -16,36 +16,29 @@
 app_server <- function(input, output, session) {
 
 
-  VECTOR_FILE <- golem::get_golem_options("editable_map")
-  Default_file <- VECTOR_FILE
-  base_map_bounds <<- Default_file %>%
+  VECTOR_FILE <- PPGISr_editable_map(golem::get_golem_options("editable_map"))
+  base_map_bounds <<- VECTOR_FILE %>%
     sf::st_bbox() %>%
     as.character()
 
-  base_map <- golem::get_golem_options("base_map")
-  ## Possibly add alternative if statement
-   if(base_map$TRACTFIPS[1] == "27137000400"){  # if no file
-    basemap_name <<- "Duluth Vulnerability Measures"
-    user_basemap <<- base_map
-    basemap_type <<- 'vector'
+  user_basemap <<- PPGISr_base_map(golem::get_golem_options("base_map"))
+
+  if (is.null(user_basemap)){
+    basemap_groups <<- c("OSM (default)", "Toner", "Toner Lite", "Open Topo Map", "ESRI World Imagery")
+  } else {
+    basemap_name <- golem::get_golem_options("basemap_name")
     basemap_groups <<- c("OSM (default)", "Toner", "Toner Lite", "Open Topo Map", "ESRI World Imagery", basemap_name)
-    bmap_fields <<- colnames(user_basemap %>% dplyr::select(tidyselect::where(is.numeric)))
-    print(bmap_fields)
-  }
-  else if (tools::file_ext(base_map) == 'tif'){  # if it is a .tif raster
-    basemap_type <<- 'raster'
-    basemap_name <<- stringr::str_split_i(toString(base_map), pattern = "[:punct:]", -2)
-    user_basemap <<- raster(base_map)
-    basemap_groups <<- c("OSM (default)", "Toner", "Toner Lite", "Open Topo Map", "ESRI World Imagery", basemap_name)
-    bmap_fields <<- NULL
-  }
-  else {  # if a vector
-    basemap_name <<- stringr::str_split_i(toString(base_map), pattern = "[:punct:]", -2)
-    user_basemap <<- st_read(base_map)
-    basemap_type <<- 'vector'
-    basemap_groups <<- c("OSM (default)", "Toner", "Toner Lite", "Open Topo Map", "ESRI World Imagery", basemap_name)
-    bmap_fields <<- colnames(user_basemap %>% dplyr::select(tidyselect::where(is.numeric)))
-    # Update the field selector with the basemap's fields
+
+    # handle whether the basemap is a raster or vector file
+    if (class(user_basemap)[1] == 'RasterLayer'){
+      basemap_type <<- 'raster'
+      bmap_fields <<- NULL
+    } else {
+      basemap_type <<- 'vector'
+      bmap_fields <<- colnames(user_basemap %>% dplyr::select(tidyselect::where(is.numeric)))
+      bmap_fields <<- bmap_fields[!bmap_fields %in% c('geometry', 'geom')]  # select non-geometry numeric fields for display options
+      updateSelectInput(inputId = 'field', choices = bmap_fields)
+    }
   }
 
   COLOR_PAL2 = c("#ffffff", golem::get_golem_options("mapping_colors")) # for legend
