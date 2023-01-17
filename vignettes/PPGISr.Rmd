@@ -1,0 +1,28 @@
+---
+title: "PPGISr"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{PPGISr}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Run an example map
+PPGISr comes with a sample map that loads as default. The example map provides an area of Minnesota and three land cover categories to choose from. 
+
+```{r basic, eval=FALSE}
+PPGISr::run_app()
+```
+
+### Create your own categorise 
+You can also suggest which categories of land cover you would like to map.
+
+```{r categories, eval=FALSE}
+PPGISr::run_app(mapping_categories = c("Trees", 
+                                       "Flowers",
+                                       "Water"))
+```
