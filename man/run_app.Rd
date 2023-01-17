@@ -5,15 +5,15 @@
 \title{Run the Shiny Application}
 \usage{
 run_app(
-  editable_map = PPGISr::duluthEditablemap \%>\% dplyr::mutate(PPGIS_CODE =
-    as.character(dplyr::row_number()), SELECTED = NA) \%>\% dplyr::select(PPGIS_CODE,
-    SELECTED, geometry) \%>\% sf::st_transform(4326),
+  editable_map = PPGISr::duluthEditablemap,
   base_map = PPGISr::duluthBasemap,
+  basemap_name = "Reference Basemap",
   mapping_categories = c("High Density Development", "Street Trees",
     "Infrastructure Need"),
   mapping_colors = c("#880015", "#22b14c", "#00a2e8"),
   editable_map_info_icon_message =
-    "Click the circle to left to choose mapping categories you want to add to the map. Click the map to indicate these preferences",
+    paste0("Click the circle to left to choose mapping categories you want to add",
+    " to the map. Click the map to indicate these preferences"),
   basemap_info_icon_message =
     "This allows you to view data for making your mapping decisions",
   onStart = NULL,
@@ -24,6 +24,20 @@ run_app(
 )
 }
 \arguments{
+\item{editable_map}{A vector file}
+
+\item{base_map}{A base map}
+
+\item{basemap_name}{Name of your imported base map}
+
+\item{mapping_categories}{Names of your chosen categories}
+
+\item{mapping_colors}{Supplied as hex values}
+
+\item{editable_map_info_icon_message}{Message for your editable map}
+
+\item{basemap_info_icon_message}{Message for baseman info button}
+
 \item{onStart}{A function that will be called before the app is actually run.
 This is only needed for \code{shinyAppObj}, since in the \code{shinyAppDir}
 case, a \code{global.R} file can be used for this purpose.}

@@ -10,6 +10,14 @@
 #' @importFrom golem with_golem_options
 #' @importFrom stats setNames
 #'
+#' @param editable_map A vector file
+#' @param base_map A base map
+#' @param basemap_name Name of your imported base map
+#' @param mapping_categories Names of your chosen categories
+#' @param mapping_colors Supplied as hex values
+#' @param editable_map_info_icon_message Message for your editable map
+#' @param basemap_info_icon_message Message for baseman info button
+#'
 #' @examples
 #' \dontrun{
 #'
@@ -24,10 +32,18 @@ run_app <- function(
   editable_map = PPGISr::duluthEditablemap,
   base_map = PPGISr::duluthBasemap,
   basemap_name = 'Reference Basemap',
-  mapping_categories = c("High Density Development", "Street Trees", "Infrastructure Need"),
-  mapping_colors = c("#880015", "#22b14c", "#00a2e8"),
-  editable_map_info_icon_message = "Click the circle to left to choose mapping categories you want to add to the map. Click the map to indicate these preferences",
-  basemap_info_icon_message = "This allows you to view data for making your mapping decisions",
+  mapping_categories = c("High Density Development",
+                         "Street Trees",
+                         "Infrastructure Need"),
+  mapping_colors = c("#880015",
+                              "#22b14c",
+                              "#00a2e8"),
+  editable_map_info_icon_message = paste0(
+    "Click the circle to left to choose mapping categories you want to add",
+    " to the map. Click the map to indicate these preferences"
+    ),
+  basemap_info_icon_message =
+    "This allows you to view data for making your mapping decisions",
   onStart = NULL,
   options = list(),
   enableBookmarking = NULL,

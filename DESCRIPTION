@@ -19,14 +19,13 @@ Imports:
     shinyWidgets,
     raster,
     dashboardthemes,
-    shinyjs,
     magrittr,
     stringr,
     htmltools
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.2.3
-Depends: 
+Depends:
     R (>= 2.10),
     shinyBS
 Suggests: 
