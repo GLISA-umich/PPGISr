@@ -3,7 +3,7 @@ title: "PPGISr"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{PPGISr}
-  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEngine{knitr::knitr}
   %\VignetteEncoding{UTF-8}
 ---
 
