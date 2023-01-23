@@ -31,7 +31,8 @@ Depends:
 Suggests: 
     spelling,
     testthat (>= 3.0.0),
-    utils
+    utils,
+    hexSticker
 Config/testthat/edition: 3
 Language: en-US
 VignetteBuilder: utils

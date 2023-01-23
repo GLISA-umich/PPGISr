@@ -1,15 +1,28 @@
 ---
-title: "README"
 output: github_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE,
+                      collapse = TRUE,
+  comment = "#>",
+  fig.path = "inst/figures/README-",
+  out.width = "100%")
 ```
 
-# PPGISr
-Welcome to PPGISr, an R package for Public participatory GIS (PPGIS).
+# PPGISr <a href="https://github.com/GLISA-umich/PPGISr"><img src="inst/figures/README_hex.png" align="right" height="132" /></a>
 
+```{r echo=FALSE, results="hide", message=FALSE}
+library("badger")
+```
+
+```{r, echo = FALSE, results='asis'}
+cat(
+	badge_repostatus("Active")
+)
+```
+
+Welcome to PPGISr, an R package for Public participatory GIS (PPGIS).
 
 ### Run an example map
 PPGISr comes with a sample map that loads as default. The example map provides an area of Minnesota and three land cover categories to choose from. 

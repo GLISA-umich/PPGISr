@@ -1,7 +1,9 @@
-README
-================
 
-# PPGISr
+# PPGISr <a href="https://github.com/GLISA-umich/PPGISr"><img src="inst/figures/README_hex.png" align="right" height="132" /></a>
+
+[![Project Status: Active - The project has reached a stable, usable
+state and is being actively
+developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 
 Welcome to PPGISr, an R package for Public participatory GIS (PPGIS).
 
