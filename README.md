@@ -1,9 +1,12 @@
 
 # PPGISr <a href="https://github.com/GLISA-umich/PPGISr"><img src="inst/figures/README_hex.png" align="right" height="132" /></a>
 
+    #> ✔ Setting active project to 'C:/Users/n_fox/Documents/code/PPGISr'
+
 [![Project Status: Active - The project has reached a stable, usable
 state and is being actively
 developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
+[![](https://img.shields.io/github/last-commit/GLISA-umich/PPGISr.svg)](https://github.com/GLISA-umich/PPGISr/commits/main)
 
 Welcome to PPGISr, an R package for Public participatory GIS (PPGIS).
 

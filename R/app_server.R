@@ -17,26 +17,26 @@ app_server <- function(input, output, session) {
 
 
   VECTOR_FILE <- PPGISr_editable_map(golem::get_golem_options("editable_map"))
-  base_map_bounds <<- VECTOR_FILE %>%
+  base_map_bounds <- VECTOR_FILE %>%
     sf::st_bbox() %>%
     as.character()
 
-  user_basemap <<- PPGISr_base_map(golem::get_golem_options("base_map"))
+  user_basemap <- PPGISr_base_map(golem::get_golem_options("base_map"))
 
   if (is.null(user_basemap)){
-    basemap_groups <<- c("OSM (default)", "Toner", "Toner Lite", "Open Topo Map", "ESRI World Imagery")
+    basemap_groups <- c("OSM (default)", "Toner", "Toner Lite", "Open Topo Map", "ESRI World Imagery")
   } else {
     basemap_name <- golem::get_golem_options("basemap_name")
-    basemap_groups <<- c("OSM (default)", "Toner", "Toner Lite", "Open Topo Map", "ESRI World Imagery", basemap_name)
+    basemap_groups <- c("OSM (default)", "Toner", "Toner Lite", "Open Topo Map", "ESRI World Imagery", basemap_name)
 
     # handle whether the basemap is a raster or vector file
     if (class(user_basemap)[1] == 'RasterLayer'){
-      basemap_type <<- 'raster'
-      bmap_fields <<- NULL
+      basemap_type <- 'raster'
+      bmap_fields <- NULL
     } else {
-      basemap_type <<- 'vector'
-      bmap_fields <<- colnames(user_basemap %>% dplyr::select(tidyselect::where(is.numeric)))
-      bmap_fields <<- bmap_fields[!bmap_fields %in% c('geometry', 'geom')]  # select non-geometry numeric fields for display options
+      basemap_type <- 'vector'
+      bmap_fields <- colnames(user_basemap %>% dplyr::select(tidyselect::where(is.numeric)))
+      bmap_fields <- bmap_fields[!bmap_fields %in% c('geometry', 'geom')]  # select non-geometry numeric fields for display options
       updateSelectInput(inputId = 'field', choices = bmap_fields)
     }
   }
@@ -131,14 +131,14 @@ app_server <- function(input, output, session) {
 
     row_idx <- which(VECTOR_FILE$PPGIS_CODE == polygon_clicked$id)
 
-    print('polygon_clicked:')
-    print(polygon_clicked$id)
-    print('row_idx:')
-    print(row_idx)
+    #print('polygon_clicked:')
+    #print(polygon_clicked$id)
+    #print('row_idx:')
+    #print(row_idx)
 
     is_selected <- VECTOR_FILE[row_idx, ]$SELECTED
 
-    print(is_selected)
+    #print(is_selected)
 
     if (!is.na(is_selected)) { # if polygon is already selected
 
