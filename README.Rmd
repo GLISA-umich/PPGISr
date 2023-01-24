@@ -37,7 +37,10 @@ You can also suggest which categories of land cover you would like to map.
 ```{r categories, eval=FALSE}
 PPGISr::run_app(mapping_categories = c("Trees", 
                                        "Flowers",
-                                       "Water"))
+                                       "Water"), 
+                mapping_colors = c("green", 
+                                    "red", 
+                                    "blue"))
 ```
 
 ## Issues and bugs
