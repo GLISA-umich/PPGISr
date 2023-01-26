@@ -32,7 +32,7 @@ app_ui <- function(request) {
           style = "height: 90vh; overflow-y: auto;",
 
           tags$p(style = "font-size: 12px;color: black;font-weight: bold;padding-left: 15px;padding-bottom: 0px",
-                 htmltools::span("This PPGIS tool is designed to support" ,br(), "community planning efforts, helping users" ,br(), "to explore their communities through" ,br(), "spatial data. By following the steps below," ,br(), "users can upload their own spatial data and" ,br(), "create categories that outline regions of the" ,br(), "map for planning purposes.")),
+                 htmltools::span("PPGISr is designed to support community" ,br(), "planning efforts, helping users to explore" ,br(), "and make decisons about their community" ,br(), "through spatial data.")),
 
           hr(),
 

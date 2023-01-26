@@ -16,34 +16,34 @@
 app_server <- function(input, output, session) {
 
 
-  VECTOR_FILE <- PPGISr_editable_map(golem::get_golem_options("editable_map"))
-  base_map_bounds <- VECTOR_FILE %>%
+  vector_file <<- PPGISr_editable_map(golem::get_golem_options("editable_map"))
+  base_map_bounds <<- vector_file %>%
     sf::st_bbox() %>%
     as.character()
 
-  user_basemap <- PPGISr_base_map(golem::get_golem_options("base_map"))
+  user_basemap <<- PPGISr_base_map(golem::get_golem_options("base_map"))
 
   if (is.null(user_basemap)){
-    basemap_groups <- c("OSM (default)", "Toner", "Toner Lite", "Open Topo Map", "ESRI World Imagery")
+    basemap_groups <<- c("OSM (default)", "Toner", "Toner Lite", "Open Topo Map", "ESRI World Imagery")
   } else {
-    basemap_name <- golem::get_golem_options("basemap_name")
-    basemap_groups <- c("OSM (default)", "Toner", "Toner Lite", "Open Topo Map", "ESRI World Imagery", basemap_name)
+    basemap_name <<- golem::get_golem_options("basemap_name")
+    basemap_groups <<- c("OSM (default)", "Toner", "Toner Lite", "Open Topo Map", "ESRI World Imagery", basemap_name)
 
     # handle whether the basemap is a raster or vector file
     if (class(user_basemap)[1] == 'RasterLayer'){
-      basemap_type <- 'raster'
-      bmap_fields <- NULL
+      basemap_type <<- 'raster'
+      bmap_fields <<- NULL
     } else {
-      basemap_type <- 'vector'
-      bmap_fields <- colnames(user_basemap %>% dplyr::select(tidyselect::where(is.numeric)))
-      bmap_fields <- bmap_fields[!bmap_fields %in% c('geometry', 'geom')]  # select non-geometry numeric fields for display options
+      basemap_type <<- 'vector'
+      bmap_fields <<- colnames(user_basemap %>% dplyr::select(tidyselect::where(is.numeric)))
+      bmap_fields <<- bmap_fields[!bmap_fields %in% c('geometry', 'geom')]  # select non-geometry numeric fields for display options
       updateSelectInput(inputId = 'field', choices = bmap_fields)
     }
   }
 
   COLOR_PAL2 = c("#ffffff", golem::get_golem_options("mapping_colors")) # for legend
-  map_palette <- colorFactor(palette = golem::get_golem_options("mapping_colors"), domain=1:length(golem:: get_golem_options("mapping_colors")), na.color = "#FFFFFF00") # for fill
-  map_palette2 <- colorFactor(palette = golem::get_golem_options("mapping_colors"), domain=1:length(golem:: get_golem_options("mapping_colors")), na.color = "black") # for borders
+  map_palette <<- colorFactor(palette = golem::get_golem_options("mapping_colors"), domain=1:length(golem:: get_golem_options("mapping_colors")), na.color = "#FFFFFF00") # for fill
+  map_palette2 <<- colorFactor(palette = golem::get_golem_options("mapping_colors"), domain=1:length(golem:: get_golem_options("mapping_colors")), na.color = "black") # for borders
 
   # Renders the map output
   output$PPGISmap <- renderLeaflet({
@@ -56,7 +56,7 @@ app_server <- function(input, output, session) {
       addProviderTiles(providers$OpenTopoMap, group = "Open Topo Map") %>%
       addProviderTiles(providers$Esri.WorldImagery, group = "ESRI World Imagery") %>%
       addPolygons(
-        data=VECTOR_FILE,
+        data=vector_file,
         layerId=~PPGIS_CODE,
         group='base_polygons',
         weight=1.5,
@@ -129,30 +129,30 @@ app_server <- function(input, output, session) {
     if (is.null(polygon_clicked)) { return() }
     if (is.null(polygon_clicked$id)) {return()}  # User-inputted vector basemaps will have no unique id value, so this line prevents them from being clicked
 
-    row_idx <- which(VECTOR_FILE$PPGIS_CODE == polygon_clicked$id)
+    row_idx <- which(vector_file$PPGIS_CODE == polygon_clicked$id)
 
     #print('polygon_clicked:')
     #print(polygon_clicked$id)
     #print('row_idx:')
     #print(row_idx)
 
-    is_selected <- VECTOR_FILE[row_idx, ]$SELECTED
+    is_selected <- vector_file[row_idx, ]$SELECTED
 
     #print(is_selected)
 
     if (!is.na(is_selected)) { # if polygon is already selected
 
-      VECTOR_FILE[row_idx, ]$SELECTED <<- NA # zeros out polygon selected value
+      vector_file[row_idx, ]$SELECTED <<- NA # zeros out polygon selected value
 
       # isolates polygon that needs to be redrawn
-      VECTOR_FILE_selected <- VECTOR_FILE[row_idx, ]
+      vector_file_selected <- vector_file[row_idx, ]
 
 
       # redraws polygon without any color (base settings)
       leafletProxy(mapId='PPGISmap') %>%
-        removeShape(VECTOR_FILE[row_idx, ]$PPGIS_CODE) %>%
+        removeShape(vector_file[row_idx, ]$PPGIS_CODE) %>%
         addPolygons(
-          data=VECTOR_FILE_selected,
+          data=vector_file_selected,
           layerId=~PPGIS_CODE,
           group='base_polygons',
           weight=1,
@@ -161,7 +161,7 @@ app_server <- function(input, output, session) {
           options = pathOptions(pane = "poly_layer")
         )
 
-      #print(VECTOR_FILE_selected)
+      #print(vector_file_selected)
     }
     else { # if polygon is not selected
       if(is.null(input$radioInt)){
@@ -172,17 +172,17 @@ app_server <- function(input, output, session) {
       palette_code_selected <- as.numeric(input$radioInt)
 
       # substitutes selected value for polygon with group number
-      VECTOR_FILE[row_idx, ]$SELECTED <<- palette_code_selected
+      vector_file[row_idx, ]$SELECTED <<- palette_code_selected
 
       #isolates polygon that needs to be redrawn
-      VECTOR_FILE_selected <- VECTOR_FILE[row_idx, ]
+      vector_file_selected <- vector_file[row_idx, ]
 
 
       # redraws polygon with correct color (defined by global palette)
       leafletProxy(mapId='PPGISmap') %>%
-        removeShape(VECTOR_FILE[row_idx, ]$PPGIS_CODE) %>%
+        removeShape(vector_file[row_idx, ]$PPGIS_CODE) %>%
         addPolygons(
-          data=VECTOR_FILE,
+          data=vector_file,
           layerId=~PPGIS_CODE,
           group='base_polygons',
           weight=1.5,
@@ -191,7 +191,7 @@ app_server <- function(input, output, session) {
           fillColor = ~map_palette(as.factor(SELECTED)),
           options = pathOptions(pane = "poly_layer")
         )
-      print(VECTOR_FILE$SELECTED)
+      print(vector_file$SELECTED)
     }
   })
 
@@ -214,7 +214,7 @@ app_server <- function(input, output, session) {
         print(name.glob)
 
         if (length(Sys.glob(name.glob)) > 0) file.remove(Sys.glob(name.glob))
-        VECTOR_FILE %>%
+        vector_file %>%
           dplyr::left_join(data.frame(values, CAT = names(values)), by=c('SELECTED' = 'values')) %>%
           sf::st_write(dsn = name.shp, ## layer = "shpExport",
                        driver = "ESRI Shapefile", quiet = TRUE)

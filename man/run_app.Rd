@@ -2,7 +2,7 @@
 % Please edit documentation in R/run_app.R
 \name{run_app}
 \alias{run_app}
-\title{Run the Shiny Application}
+\title{A function to run the PPGISr Shiny Application}
 \usage{
 run_app(
   editable_map = PPGISr::duluthEditablemap,
@@ -12,11 +12,9 @@ run_app(
     "Infrastructure Need"),
   mapping_colors = c("#880015", "#22b14c", "#00a2e8"),
   editable_map_info_icon_message =
-    paste0("Click the circle to left to choose mapping categories you want to add",
-    " to the map. Click the map to indicate these preferences"),
+    "Click the circle to left to choose mapping categories you want to add to the map. Click the map to indicate these preferences",
   basemap_info_icon_message =
     "This allows you to view data for making your mapping decisions",
-  onStart = NULL,
   options = list(),
   enableBookmarking = NULL,
   uiPattern = "/",
@@ -24,23 +22,19 @@ run_app(
 )
 }
 \arguments{
-\item{editable_map}{A vector file}
+\item{editable_map}{A vector file (e.g., multiploygon, polygon)}
 
-\item{base_map}{A base map}
+\item{base_map}{A vector (e.g., multipolygon, polygon) or raster (i.e. tif, grid) file for visualization}
 
-\item{basemap_name}{Name of your imported base map}
+\item{basemap_name}{The legend name given to your imported base map}
 
-\item{mapping_categories}{Names of your chosen categories}
+\item{mapping_categories}{Vector of names for mapping categories options (i.e. "Trees", "Flowers","Water")}
 
-\item{mapping_colors}{Supplied as hex values}
+\item{mapping_colors}{Vector of colors corresponding to vector of names (i.e. "green", "red","blue")}
 
-\item{editable_map_info_icon_message}{Message for your editable map}
+\item{editable_map_info_icon_message}{Message for your editable info button}
 
-\item{basemap_info_icon_message}{Message for baseman info button}
-
-\item{onStart}{A function that will be called before the app is actually run.
-This is only needed for \code{shinyAppObj}, since in the \code{shinyAppDir}
-case, a \code{global.R} file can be used for this purpose.}
+\item{basemap_info_icon_message}{Message for basemap info button}
 
 \item{options}{Named options that should be passed to the \code{runApp} call
 (these can be any of the following: "port", "launch.browser", "host", "quiet",
@@ -62,15 +56,27 @@ expression in order for the match to be considered successful.}
 See `?golem::get_golem_options` for more details.}
 }
 \description{
-Run the Shiny Application
+A function to run the PPGISr Shiny Application
 }
 \examples{
 \dontrun{
 
-run_app()
-
+PPGISr::run_app()
+## Customize your PPGISr interface by adding mapping categories
 run_app(mapping_categories = c("flowers", "lake", "trees"))
 
+## Customize your PPGISr interface by specifying colors for your mapping categories
+## This must be a vector of the same length as the mapping categories
+run_app(mapping_categories = c("flowers", "lake", "trees"),
+        mapping_colors = c("green", "red", "blue"))
+
+## Customize your PPGISr interface by specifying an editable map
+## We recommend using the sf library to load spatial vector data
+library(sf)
+## Spatial data should use World Geodetic System 1984 (WGS84) coordinate reference system(crs)
+editable_map <- st_read(system.file("shape/nc.shp", package="sf"))
+
+run_app(editable_map = editable_map, base_map = NULL)
 }
 
 

@@ -1,0 +1,49 @@
+---
+title: "PPGISr"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{PPGISr}
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+runtime: shiny
+---
+
+```{r, include = FALSE}
+ knitr::opts_chunk$set(
+   collapse = TRUE,
+   comment = "#>"
+ )
+```
+
+PPGISr is a shiny app for collecting spatially explicit data from users
+```{r setup}
+library(PPGISr)
+```
+
+The `run_app()` function initializes the app with default data 
+```{r include = FALSE}
+run_app()
+```
+
+You can customize your PPGISr interface by adding mapping categories
+```{r eval=F}
+run_app(mapping_categories = c("flowers", "lake", "trees"))
+```
+
+It is also possible to add colors that coorispond to these categories
+
+```{r, eval=F, echo=T}
+## This must be a vector of the same length as the mapping categories
+run_app(mapping_categories = c("flowers", "lake", "trees"),
+        mapping_colors = c("green", "red", "blue"))
+```
+
+Users can also specify the editable map layer, allowing for different location and resoultion of decision units
+```{r, eval=F, echo=T}
+## We recommend using the sf library to load spatial vector data
+library(sf)
+## Spatial data should use World Geodetic System 1984 (WGS84) coordinate reference system(crs)
+editable_map <- st_read(system.file("shape/nc.shp", package="sf"))
+
+run_app(editable_map = editable_map, base_map = NULL)
+```

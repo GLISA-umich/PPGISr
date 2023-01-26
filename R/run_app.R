@@ -1,4 +1,4 @@
-#' Run the Shiny Application
+#' A function to run the PPGISr Shiny Application
 #'
 #' @param ... arguments to pass to golem_opts.
 #' See `?golem::get_golem_options` for more details.
@@ -10,21 +10,33 @@
 #' @importFrom golem with_golem_options
 #' @importFrom stats setNames
 #'
-#' @param editable_map A vector file
-#' @param base_map A base map
-#' @param basemap_name Name of your imported base map
-#' @param mapping_categories Names of your chosen categories
-#' @param mapping_colors Supplied as hex values
-#' @param editable_map_info_icon_message Message for your editable map
-#' @param basemap_info_icon_message Message for baseman info button
+#' @param editable_map A vector file (e.g., multiploygon, polygon)
+#' @param base_map A vector (e.g., multipolygon, polygon) or raster (i.e. tif, grid) file for visualization
+#' @param basemap_name The legend name given to your imported base map
+#' @param mapping_categories Vector of names for mapping categories options (i.e. "Trees", "Flowers","Water")
+#' @param mapping_colors Vector of colors corresponding to vector of names (i.e. "green", "red","blue")
+#' @param editable_map_info_icon_message Message for your editable info button
+#' @param basemap_info_icon_message Message for basemap info button
 #'
 #' @examples
 #' \dontrun{
 #'
-#' run_app()
-#'
+#' PPGISr::run_app()
+#' ## Customize your PPGISr interface by adding mapping categories
 #' run_app(mapping_categories = c("flowers", "lake", "trees"))
 #'
+#' ## Customize your PPGISr interface by specifying colors for your mapping categories
+#' ## This must be a vector of the same length as the mapping categories
+#' run_app(mapping_categories = c("flowers", "lake", "trees"),
+#'         mapping_colors = c("green", "red", "blue"))
+#'
+#' ## Customize your PPGISr interface by specifying an editable map
+#' ## We recommend using the sf library to load spatial vector data
+#' library(sf)
+#' ## Spatial data should use World Geodetic System 1984 (WGS84) coordinate reference system(crs)
+#' editable_map <- st_read(system.file("shape/nc.shp", package="sf"))
+#'
+#' run_app(editable_map = editable_map, base_map = NULL)
 #' }
 #'
 #'
@@ -36,15 +48,13 @@ run_app <- function(
                          "Street Trees",
                          "Infrastructure Need"),
   mapping_colors = c("#880015",
-                              "#22b14c",
-                              "#00a2e8"),
-  editable_map_info_icon_message = paste0(
-    "Click the circle to left to choose mapping categories you want to add",
-    " to the map. Click the map to indicate these preferences"
-    ),
+                      "#22b14c",
+                      "#00a2e8"),
+  editable_map_info_icon_message =
+    "Click the circle to left to choose mapping categories you want to add to the map. Click the map to indicate these preferences",
   basemap_info_icon_message =
     "This allows you to view data for making your mapping decisions",
-  onStart = NULL,
+  #onStart = NULL,
   options = list(),
   enableBookmarking = NULL,
   uiPattern = "/",
@@ -54,7 +64,7 @@ run_app <- function(
     app = shinyApp(
       ui = app_ui,
       server = app_server,
-      onStart = onStart,
+      #onStart = onStart,
       options = options,
       enableBookmarking = enableBookmarking,
       uiPattern = uiPattern
