@@ -15,22 +15,26 @@ runtime: shiny
  )
 ```
 
-PPGISr is a shiny app for collecting spatially explicit data from users
-```{r setup}
-library(PPGISr)
+Welcome to PPGISr, an R package for Public participatory GIS (PPGIS).
+
+### Run an example map
+PPGISr comes with a sample map that loads as default. The example map provides an area of Minnesota and three land cover categories to choose from. 
+
+```{r basic, eval=FALSE}
+PPGISr::run_app()
 ```
 
-The `run_app()` function initializes the app with default data 
-```{r include = FALSE}
-run_app()
+### Create your own categorise 
+You can also suggest which categories you would like to map (e.g. land use, environmental and social vulnerabilities).
+
+```{r categories, eval=FALSE}
+PPGISr::run_app(mapping_categories = c("Trees", 
+                                       "Flowers",
+                                       "Water"))
 ```
 
-You can customize your PPGISr interface by adding mapping categories
-```{r eval=F}
-run_app(mapping_categories = c("flowers", "lake", "trees"))
-```
-
-It is also possible to add colors that coorispond to these categories
+### Create your own colors
+It is also possible to add colors that corresponds to these categories
 
 ```{r, eval=F, echo=T}
 ## This must be a vector of the same length as the mapping categories
@@ -38,7 +42,8 @@ run_app(mapping_categories = c("flowers", "lake", "trees"),
         mapping_colors = c("green", "red", "blue"))
 ```
 
-Users can also specify the editable map layer, allowing for different location and resoultion of decision units
+### Add your own editable map
+Users can specify the editable map layer, allowing for different locations and regular geographic units with a desire resolution (e.g. census tract, regular tessellation) for decision-making
 ```{r, eval=F, echo=T}
 ## We recommend using the sf library to load spatial vector data
 library(sf)
@@ -46,4 +51,3 @@ library(sf)
 editable_map <- st_read(system.file("shape/nc.shp", package="sf"))
 
 run_app(editable_map = editable_map, base_map = NULL)
-```
