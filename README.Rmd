@@ -24,7 +24,11 @@ cat(
 
 Welcome to PPGISr, an R package for Public participatory GIS (PPGIS).
 
-Welcome to PPGISr, an R package for Public participatory GIS (PPGIS).
+### Install PPGISr
+```{r eval=FALSE}
+library(devtools)
+install_github("https://github.com/GLISA-umich/PPGISr")
+```
 
 ### Run an example map
 PPGISr comes with a sample map that loads as default. The example map provides an area of Minnesota and three land cover categories to choose from. 

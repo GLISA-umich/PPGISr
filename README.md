@@ -7,7 +7,12 @@ developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.re
 
 Welcome to PPGISr, an R package for Public participatory GIS (PPGIS).
 
-Welcome to PPGISr, an R package for Public participatory GIS (PPGIS).
+### Install PPGISr
+
+``` r
+library(devtools)
+install_github("https://github.com/GLISA-umich/PPGISr")
+```
 
 ### Run an example map
 

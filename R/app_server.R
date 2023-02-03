@@ -106,7 +106,7 @@ app_server <- function(input, output, session) {
     else {
       basemap_var <- input$field
       bins <- quantile(user_basemap[[basemap_var]], na.rm=TRUE)
-      bmap_pal <- colorBin("Greys", domain = user_basemap[[basemap_var]], bins = bins)  # may want to change color ramp
+      bmap_pal <- colorBin("YlOrRd", domain = user_basemap[[basemap_var]], bins = bins)  # may want to change color ramp
 
       leafletProxy(mapId='PPGISmap') %>%
         removeShape(user_basemap) %>%
@@ -191,7 +191,7 @@ app_server <- function(input, output, session) {
           fillColor = ~map_palette(as.factor(SELECTED)),
           options = pathOptions(pane = "poly_layer")
         )
-      print(vector_file$SELECTED)
+      #print(vector_file$SELECTED)
     }
   })
 
