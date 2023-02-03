@@ -15,7 +15,6 @@
 #' @noRd
 app_server <- function(input, output, session) {
 
-
   vector_file <<- PPGISr_editable_map(golem::get_golem_options("editable_map"))
   base_map_bounds <<- vector_file %>%
     sf::st_bbox() %>%
