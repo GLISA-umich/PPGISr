@@ -78,3 +78,4 @@ run_app <- function(
     editable_map_info_icon_message = editable_map_info_icon_message,
     basemap_info_icon_message = basemap_info_icon_message
 ))}
+
