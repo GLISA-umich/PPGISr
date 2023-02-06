@@ -10,13 +10,13 @@
 #' @importFrom golem with_golem_options
 #' @importFrom stats setNames
 #'
-#' @param editable_map A vector file (e.g., multiploygon, polygon)
+#' @param editable_map A vector file (e.g., multipolygon, polygon)
 #' @param base_map A vector (e.g., multipolygon, polygon) or raster (i.e. tif, grid) file for visualization
 #' @param basemap_name The legend name given to your imported base map
 #' @param mapping_categories Vector of names for mapping categories options (i.e. "Trees", "Flowers","Water")
 #' @param mapping_colors Vector of colors corresponding to vector of names (i.e. "green", "red","blue")
-#' @param editable_map_info_icon_message Message for your editable info button
-#' @param basemap_info_icon_message Message for basemap info button
+#' @param editable_map_info_icon_message Character string of the message for your editable info button
+#' @param basemap_info_icon_message Character string of the message for basemap info button
 #'
 #' @examples
 #' \dontrun{
@@ -78,3 +78,4 @@ run_app <- function(
     editable_map_info_icon_message = editable_map_info_icon_message,
     basemap_info_icon_message = basemap_info_icon_message
 ))}
+
