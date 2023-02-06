@@ -22,7 +22,7 @@ run_app(
 )
 }
 \arguments{
-\item{editable_map}{A vector file (e.g., multiploygon, polygon)}
+\item{editable_map}{A vector file (e.g., multipolygon, polygon)}
 
 \item{base_map}{A vector (e.g., multipolygon, polygon) or raster (i.e. tif, grid) file for visualization}
 
@@ -32,9 +32,9 @@ run_app(
 
 \item{mapping_colors}{Vector of colors corresponding to vector of names (i.e. "green", "red","blue")}
 
-\item{editable_map_info_icon_message}{Message for your editable info button}
+\item{editable_map_info_icon_message}{Character string of the message for your editable info button}
 
-\item{basemap_info_icon_message}{Message for basemap info button}
+\item{basemap_info_icon_message}{Character string of the message for basemap info button}
 
 \item{options}{Named options that should be passed to the \code{runApp} call
 (these can be any of the following: "port", "launch.browser", "host", "quiet",
