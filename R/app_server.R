@@ -23,11 +23,11 @@ app_server <- function(input, output, session) {
   user_basemap <<- PPGISr_base_map(golem::get_golem_options("base_map"))
 
   if (is.null(user_basemap)){
-    basemap_groups <<- c("OSM (default)", "Toner", "Toner Lite", 
+    basemap_groups <<- c("OSM (default)", "Toner", "Toner Lite",
                          "Open Topo Map", "ESRI World Imagery")
   } else {
     basemap_name <<- golem::get_golem_options("basemap_name")
-    basemap_groups <<- c("OSM (default)", "Toner", "Toner Lite", 
+    basemap_groups <<- c("OSM (default)", "Toner", "Toner Lite",
                          "Open Topo Map", "ESRI World Imagery", basemap_name)
 
     # handle whether the basemap is a raster or vector file
@@ -36,18 +36,18 @@ app_server <- function(input, output, session) {
       bmap_fields <<- NULL
     } else {
       basemap_type <<- 'vector'
-      bmap_fields <<- colnames(user_basemap %>% 
+      bmap_fields <<- colnames(user_basemap %>%
                                  dplyr::select(tidyselect::where(is.numeric)))
-      bmap_fields <<- bmap_fields[!bmap_fields %in% c('geometry', 'geom')]  
+      bmap_fields <<- bmap_fields[!bmap_fields %in% c('geometry', 'geom')]
       # select non-geometry numeric fields for display options
       updateSelectInput(inputId = 'field', choices = bmap_fields)
     }
   }
 
-  COLOR_PAL2 = c("#ffffff", golem::get_golem_options("mapping_colors")) 
+  COLOR_PAL2 = c("#ffffff", golem::get_golem_options("mapping_colors"))
   # for legend
-  map_palette <<- colorFactor(palette = 
-                                golem::get_golem_options("mapping_colors"), 
+  map_palette <<- colorFactor(palette =
+                                golem::get_golem_options("mapping_colors"),
                               domain=1:length(golem:: get_golem_options("mapping_colors")), na.color = "#FFFFFF00") # for fill
   map_palette2 <<- colorFactor(palette = golem::get_golem_options("mapping_colors"), domain=1:length(golem:: get_golem_options("mapping_colors")), na.color = "black") # for borders
 
