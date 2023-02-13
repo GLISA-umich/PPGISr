@@ -62,20 +62,22 @@ app_ui <- function(request) {
 
 
           hr(),
-          fluidRow(column(11, actionBttn(
+          fluidRow(column(11, align = "center", actionBttn(
             inputId = "go",
             label = "Download Map",
             color = "success",
-            size = "md",
+            size = "lg",
             style = "unite",
             icon = icon("camera"),
             block = TRUE
           ))),
 
-          fluidRow(column(11,downloadBttn(
+          fluidRow(column(11.2, align = "center",
+                          downloadBttn(
             outputId = "download_shp",
-            label = "Download Map Data",
+            label = "Download Map Data   ",
             style = "unite",
+            size = "lg",
             color = "success",
             icon = icon("download")))),
 
