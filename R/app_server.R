@@ -221,7 +221,7 @@ app_server <- function(input, output, session) {
 
         if (length(Sys.glob(name.glob)) > 0) file.remove(Sys.glob(name.glob))
         vector_file %>%
-          dplyr::left_join(data.frame(values, CAT = names(values)), by=c('SELECTED' = 'values')) %>%
+          dplyr::left_join(data.frame(values = golem::get_golem_options("mapping_categories"), CAT = names(golem::get_golem_options("mapping_categories"))), by=c('SELECTED' = 'values')) %>%
           sf::st_write(dsn = name.shp, ## layer = "shpExport",
                        driver = "ESRI Shapefile", quiet = TRUE)
 
